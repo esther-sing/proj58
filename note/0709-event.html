@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- https://developer.mozilla.org/zh-TW/docs/Web/API/Event/preventDefault -->
+    <a href="https://tw.yahoo.com" onclick="return false">yahoo</a> 
+    <br>
+    <a href="javascript:func()">fake link</a>   <!--假連結-->
+    <br>
+    <button onclick="console.log(event)">ABC</button> 
+    <script>
+        function func(){
+            alert('熊熊遇見你');
+        }
+    </script>
+</body>
+</html>

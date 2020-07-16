@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<form name="form1" onsubmit="return false">
+    <!-- onsubmit="return false"   表單不會送出 ,預設會送出 -->
+    
+    <input type="hidden" name="my" value="567">
+    <input type="number" id="a" name="a">+<input type="number" id="b" name="b">
+    <button id="sendBtn">=</button><span id="result"></span>
+</form>
+    <script src="../proj58/lib/jquery-3.5.1.js"></script>
+
+    <script>
+        
+    const sendBtn = $('#sendBtn'),
+            
+            result = $('#result');
+            sendBtn.on('click',function(){
+           
+
+
+            $.get(
+            '0709-plus2.php',  //抓到php程式,給php計算
+            $(document.form1).serialize(), //表單裡有效的值都抓起來
+
+            function(data){  //php算完回傳的值,data是自己訂的形式參數
+                result.html(data);  
+            });
+
+        });
+
+
+
+    
+        
+
+    </script>
+</body>
+</html>
