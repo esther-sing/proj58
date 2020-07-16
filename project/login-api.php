@@ -25,7 +25,7 @@ $row = $stmt->fetch();
 
 if(! empty($row)){
     $output['success'] = true;
-    unset($row['password']);
+    unset($row['password']); 
     $_SESSION['member'] = $row;
 }
 echo json_encode($output, JSON_UNESCAPED_UNICODE);
