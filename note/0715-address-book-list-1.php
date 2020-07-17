@@ -20,7 +20,6 @@ $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0]; //抓到總共有幾
 
 // 如果沒有資料時的設定
 $stmt = null;
-$pageBtns = [];
 if ($totalRows > 0) {
     $totalPages = ceil($totalRows / $perPage);
 
@@ -50,25 +49,6 @@ if ($totalRows > 0) {
     $sql = sprintf("SELECT * FROM address_book ORDER BY`sid` DESC LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
     // ORDER BY`sid` DESC 降冪排列
     $stmt = $pdo->query($sql);
-    
-    if($totalPages<=5){
-                for($i=1; $i<=$totalPages; $i++){
-                    $pageBtns[] = $i;
-                }
-            } else {
-                $tmpAr1 = [];
-                for($i=$page-2; $i<=$totalPages; $i++){
-                    if($i>=1) {
-                        $tmpAr1[] = $i;
-                    }
-                    if(count($tmpAr1)>=5){
-                        break;
-                    }
-                }
-                $pageBtns = $tmpAr1;
-            }
-
-
 }
 
 
@@ -85,7 +65,7 @@ if ($totalRows > 0) {
 <?php include __DIR__ . '/0714_navebar.php' ?>
 <div class="container">
 
-    <div class="row ">
+    <div class="row">
         <div class="col">
 
             <?php if (!empty($stmt)) : ?>
@@ -101,12 +81,12 @@ if ($totalRows > 0) {
                                 <!--先在head的php檔 link fontawesome ,複製 fontawesome網站上的連結 fas fa-arrow-circle-left -->
                             </a>
                         </li>
-                        <?php foreach($pageBtns as $i):?>
+                        <?php for ($i = 1; $i <= $totalPages; $i++) :  ?>
                             <li class="page-item <?= $page == $i ? 'active' : '' ?>">
                                 <!--active  bootstrap語法,底色變藍其他底色變白 -->
                                 <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
                             </li>
-                            <?php endforeach; ?>
+                        <?php endfor; ?>
                         <li class="page-item  <?= $page == $totalPages ? 'disabled' : '' ?>">
                             <a class="page-link" href="?page=<?= $page + 1 ?>">
                                 <i class="fas fa-arrow-circle-right"></i>

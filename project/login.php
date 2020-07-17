@@ -13,7 +13,8 @@ $pageName = 'ab-insert';
         }
     </style>
 
-    <div class="row">
+    <div class="row d-flex justify-content-center">
+    <!-- 置中 -->
         <div class="col-lg-6">
 
             <div id="info-bar" class="alert alert-success" role="alert" style="display: none">dsrfghrf</div>

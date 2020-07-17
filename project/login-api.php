@@ -14,10 +14,13 @@ if(empty($_POST['email']) or empty($_POST['password'])){
     exit;
 }
 
+$email = strtolower(trim($_POST['email']));
+# strtolower搜尋的時候不分大小寫
 $sql = "SELECT * FROM members WHERE email=? AND password=SHA1(?)";
+# SHA1密碼顯示亂碼
 $stmt = $pdo->prepare($sql);
 $stmt->execute([
-    $_POST['email'],
+    $email,
     $_POST['password'],
 ]);
 
