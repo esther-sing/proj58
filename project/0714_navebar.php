@@ -29,11 +29,22 @@ if(empty($pageName)){
               </li>
             </ul>
             <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="<?= WEB_ROOT ?>/login.php">登入</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="">註冊</a>
+            <?php if(isset($_SESSION['member'])): ?>
+                    <li class="nav-item">
+                        <a class="nav-link"><?= $_SESSION['member']['nickname'] ?></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= WEB_ROOT ?>/logout.php">登出</a>
+                    </li>
+                <?php else: ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= WEB_ROOT ?>/login.php">登入</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="">註冊</a>
+                    </li>
+                <?php endif; ?>
+            </ul>
         </div>
     </div>
 </nav>

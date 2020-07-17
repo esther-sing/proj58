@@ -14,7 +14,7 @@ $pageName = 'ab-insert';
     </style>
 
     <div class="row d-flex justify-content-center">
-    <!-- 置中 -->
+        <!-- 置中 -->
         <div class="col-lg-6">
 
             <div id="info-bar" class="alert alert-success" role="alert" style="display: none">dsrfghrf</div>
@@ -39,7 +39,7 @@ $pageName = 'ab-insert';
                             <small id="passwordHelp" class="form-text"></small>
                         </div>
                         <div class="form-group">
-                           
+
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
@@ -52,13 +52,13 @@ $pageName = 'ab-insert';
 <?php include __DIR__ . '/0714_scripts.php' ?>
 <script>
     const email = $('#email'),
-    password = $('#password'),
+        password = $('#password'),
         info_bar = $('#info-bar'); // 提示ber
 
 
     // 抓到正確格式  ^開頭  $結尾
     const email_re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
-    
+
 
 
 
@@ -84,7 +84,7 @@ $pageName = 'ab-insert';
 
 
         //  如果mobile格式不正確
-        if(password.val().length <6) {
+        if (password.val().length < 6) {
             isPass = false;
             password.css('border-color', 'red');
             password.next().text('密碼長度不能小於6個字');
@@ -103,6 +103,10 @@ $pageName = 'ab-insert';
                     info_bar.removeClass('alert-danger')
                         .addClass('alert-success')
                         .html('登入成功');
+                    setTimeout(function() {
+                      location.href = '0715-address-book.php';
+                    }, 3000);
+
                 } else {
                     info_bar.removeClass('alert-success')
                         .addClass('alert-danger')
@@ -112,7 +116,7 @@ $pageName = 'ab-insert';
 
                 setTimeout(function() {
                     info_bar.slideUp();
-                }, 3000);
+                }, 2000);
                 //    設定時間
 
             }, 'json');
