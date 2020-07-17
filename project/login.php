@@ -41,7 +41,7 @@ $pageName = 'ab-insert';
                         <div class="form-group">
 
                         </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary">登入</button>
                     </form>
                 </div>
             </div>

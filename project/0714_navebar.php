@@ -30,8 +30,14 @@ if(empty($pageName)){
             </ul>
             <ul class="navbar-nav">
             <?php if(isset($_SESSION['member'])): ?>
-                    <li class="nav-item">
-                        <a class="nav-link"><?= $_SESSION['member']['nickname'] ?></a>
+                <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <?= $_SESSION['member']['nickname'] ?>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">歷史訂單</a>
+                            <a class="dropdown-item" href="#">修改個人資料</a>
+                        </div>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="<?= WEB_ROOT ?>/logout.php">登出</a>
@@ -41,7 +47,7 @@ if(empty($pageName)){
                         <a class="nav-link" href="<?= WEB_ROOT ?>/login.php">登入</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="">註冊</a>
+                        <a class="nav-link" href="<?= WEB_ROOT ?>/register.php">註冊</a>
                     </li>
                 <?php endif; ?>
             </ul>
