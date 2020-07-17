@@ -50,25 +50,32 @@ if ($totalRows > 0) {
     $sql = sprintf("SELECT * FROM address_book ORDER BY`sid` DESC LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
     // ORDER BY`sid` DESC 降冪排列
     $stmt = $pdo->query($sql);
-    
-    if($totalPages<=5){
-                for($i=1; $i<=$totalPages; $i++){
-                    $pageBtns[] = $i;
-                }
-            } else {
-                $tmpAr1 = [];
-                for($i=$page-2; $i<=$totalPages; $i++){
-                    if($i>=1) {
-                        $tmpAr1[] = $i;
-                    }
-                    if(count($tmpAr1)>=5){
-                        break;
-                    }
-                }
-                $pageBtns = $tmpAr1;
+
+    if ($totalPages <= 5) {
+        for ($i = 1; $i <= $totalPages; $i++) {
+            $pageBtns[] = $i; //array push 
+        }
+    } else {
+        $tmpAr1 = [];
+        for ($i = $page - 2; $i <= $totalPages; $i++) {
+            if ($i >= 1) {
+                $tmpAr1[] = $i;//從前往後數
             }
-
-
+            if (count($tmpAr1) >= 5) {
+                break;
+            }
+        }
+        $tmpAr2 = [];//從後往前數
+        for ($i = $page + 2; $i >= 1; $i--) {
+            if ($i <= $totalPages) {
+                array_unshift($tmpAr2, $i);
+            }
+            if (count($tmpAr2) >= 5) {
+                break;
+            }
+        }
+        $pageBtns = (count($tmpAr1) > count($tmpAr2)) ? $tmpAr1 : $tmpAr2;
+    }
 }
 
 
@@ -101,12 +108,12 @@ if ($totalRows > 0) {
                                 <!--先在head的php檔 link fontawesome ,複製 fontawesome網站上的連結 fas fa-arrow-circle-left -->
                             </a>
                         </li>
-                        <?php foreach($pageBtns as $i):?>
+                        <?php foreach ($pageBtns as $i) : ?>
                             <li class="page-item <?= $page == $i ? 'active' : '' ?>">
                                 <!--active  bootstrap語法,底色變藍其他底色變白 -->
                                 <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
                             </li>
-                            <?php endforeach; ?>
+                        <?php endforeach; ?>
                         <li class="page-item  <?= $page == $totalPages ? 'disabled' : '' ?>">
                             <a class="page-link" href="?page=<?= $page + 1 ?>">
                                 <i class="fas fa-arrow-circle-right"></i>
@@ -151,7 +158,7 @@ if ($totalRows > 0) {
                             <tr>
                                 <td>
                                     <a href="javascript: delete_it(<?= $r['sid'] ?>)">
-                                    <!-- 刪除前確認 -->
+                                        <!-- 刪除前確認 -->
 
                                         <i class="fas fa-trash-alt"></i>
                                     </a>
@@ -190,10 +197,9 @@ if ($totalRows > 0) {
 </div>
 <?php include __DIR__ . '/0714_scripts.php' ?>
 <script>
-
-// 刪除前確認
-    function delete_it(sid){
-        if(confirm(`確定要刪除編號為 ${sid} 的資料嗎?`)){
+    // 刪除前確認
+    function delete_it(sid) {
+        if (confirm(`確定要刪除編號為 ${sid} 的資料嗎?`)) {
             location.href = 'ab-del.php?sid=' + sid;
         }
     }
