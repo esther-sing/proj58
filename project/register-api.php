@@ -15,18 +15,21 @@ if(empty($_POST['email']) or empty($_POST['password'])  or empty($_POST['nicknam
 }
 
 $email = strtolower(trim($_POST['email']));
-/*
-$sql = "SELECT sid FROM address_book WHERE email=?";
+
+
+$sql = "SELECT `id` FROM members WHERE email=?";
 $stmt = $pdo->prepare($sql);
 $stmt->execute([ $email ]);
-if($stmt->rowCount()>=1){
+$row = $stmt->fetch();
+if(!empty($row)){
     $output['error'] = '此 Email 已經註冊過了';
     echo json_encode($output, JSON_UNESCAPED_UNICODE);
     exit;
 }
-print_r($stmt->fetch());
+
+
 $stmt->closeCursor();
-*/
+
 $hash = md5($email. rand());
 
 $sql = "INSERT INTO `members`(
