@@ -30,6 +30,10 @@ if(empty($pageName)){
             </ul>
             <ul class="navbar-nav">
             <?php if(isset($_SESSION['member'])): ?>
+                <li class="nav-item">
+                       <img src="http://www.gravatar.com/avatar/<?= md5($_SESSION['member']['email']) ?>.jpg?s=40" alt="">
+                       <!-- gmail avatar: https://jsfiddle.net/a4g8s5y2/1/ 可以抓到gmail頭貼 要先在gmail開隱私設定 -->
+                    </li>
                 <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <?= $_SESSION['member']['nickname'] ?>
