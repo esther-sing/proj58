@@ -104,7 +104,7 @@ $pageName = 'ab-insert';
                         .addClass('alert-success')
                         .html('登入成功');
                     setTimeout(function() {
-                      location.href = '0715-address-book.php';
+                      location.href = './';
                     }, 3000);
 
                 } else {

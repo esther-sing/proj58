@@ -35,7 +35,7 @@ $hash = md5($email. rand());
 $sql = "INSERT INTO `members`(
             `email`, `password`, `hash`, `nickname`, `create_at`
             ) VALUES (
-            ?, ?, ?, ?, NOW()
+            ?, SHA1(?), ?, ?, NOW()
             )";
 $stmt = $pdo->prepare($sql);
 $stmt->execute([
