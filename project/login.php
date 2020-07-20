@@ -104,7 +104,7 @@ $pageName = 'ab-insert';
                         .addClass('alert-success')
                         .html('登入成功');
                     setTimeout(function() {
-                      location.href = './';
+                      location.href = 'index_.php';
                     }, 3000);
 
                 } else {
