@@ -98,6 +98,11 @@ $pageTitle = '2-ajax';
         let h = location.hash.slice(1);
         h = parseInt(h) || 1;
         info.innerHTML = h;
+
+        $.get('ab-list2-api.php', {page: h}, function(data){
+            console.log(data);
+        }, 'json');
+        //抓到資料顯示在console
      }
 
 
