@@ -27,7 +27,7 @@ if (empty($pageName)) {
                     <a class="nav-link" href="<?= WEB_ROOT ?>/0715-abinsert.php">新增資料</a>
                 </li>
 
-                <li class="nav-item <?= $pageName=='ab-list' ? 'active' : '' ?>">
+                <li class="nav-item <?= $pageName=='ab-list2' ? 'active' : '' ?>">
                     <a class="nav-link" href="<?= WEB_ROOT ?>/ab-list2.php">資料列表2-ajax</a>
                 </li>
             </ul>

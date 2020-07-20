@@ -21,7 +21,7 @@ if(empty($pageName)){
                 <!-- <li class="nav-item"> -->
                 <li class="nav-item ">
 
-                    <a class="nav-link" href="<?= WEB_ROOT ?>/0715-address-book-list.php">商品列表</a>
+                    <a class="nav-link" href="<?= WEB_ROOT ?>/index_.php">商品列表</a>
                 </li>
                 <!-- <li class="nav-item"> -->
                 <li class="nav-item">

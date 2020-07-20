@@ -62,5 +62,5 @@ if($totalRows > 0) {
     $output['rows'] = $stmt->fetchAll();
     $output['pageBtns'] = $pageBtns;
 }
-
+header('Content-Type: application/json');
 echo json_encode($output, JSON_UNESCAPED_UNICODE);
