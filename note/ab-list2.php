@@ -85,7 +85,8 @@ $pageTitle = '2-ajax';
                 
                 </tbody>
             </table>
-            
+            <input type="text">
+            <div id="info"></div>
         </div>
     </div>
 
@@ -93,12 +94,18 @@ $pageTitle = '2-ajax';
 </div>
 <?php include __DIR__. '/0714_scripts.php' ?>
 <script>
-    function delete_it(sid) {
-        if(confirm(`確定要刪除編號為 ${sid} 的資料嗎?`)){
-            location.href = 'ab-del.php?sid=' + sid;
-        }
-    }
+     function handleHash(){
+        let h = location.hash.slice(1);
+        h = parseInt(h) || 1;
+        info.innerHTML = h;
+     }
 
+
+    window.addEventListener('hashchange', handleHash);
+    handleHash();
+
+    //在網址列打#+隨意的數字,在input欄位輸入數字，頁面不會重新刷新
+    // NaN ->  Not a Number
 
 </script>
 <?php require __DIR__. '/0714_html_foot.php' ?>
