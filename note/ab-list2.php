@@ -42,9 +42,9 @@ $pageTitle = '2-ajax';
 
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="tbody">
 
-                    <tr>
+                    <!-- <tr>
 
                         <td></td>
                         <td></td>
@@ -55,7 +55,7 @@ $pageTitle = '2-ajax';
 
 
 
-                    </tr>
+                    </tr> -->
 
                 </tbody>
             </table>
@@ -69,7 +69,10 @@ $pageTitle = '2-ajax';
 <?php include __DIR__ . '/0714_scripts.php' ?>
 <script>
     const pagination = $('.pagination');
+    const tbody = $('.tbody');
 
+
+    //頁碼按鈕
     function pageBtnTpl(obj) {
         // obj.i // 頁碼
         // obj.isActive // 當前這頁要做反白
@@ -78,8 +81,21 @@ $pageTitle = '2-ajax';
                 </li>`;
     }
 
-
+    //抓到的資料
     function itemTpl(obj) {
+        let s = obj.address.replace('/</gm', '&lt');
+        s = s.replace('/>/gm', '&gt');
+        //   '/>/gm', '&gt'  跳脫html
+        return `<tr>
+
+                    <td>${obj.sid}</td>
+                    <td>${obj.name}</td>
+                    <td>${obj.email}</td>
+                    <td>${obj.mobile}</td>
+                    <td>${obj.birthday}</td>
+                    <td>${s}</td>
+
+                    </tr>`
 
     }
 
@@ -99,6 +115,10 @@ $pageTitle = '2-ajax';
                     i: data.pageBtns[s],
                     isActive: data.pageBtns[s] == data.page
                 }))
+            }
+            tbody.empty();//清空
+            for(let s in data.rows){
+                tbody.append(itemTpl(data.rows[s]));
             }
 
         }, 'json');
