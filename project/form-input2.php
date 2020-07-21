@@ -47,30 +47,26 @@ $data2 = [
         <?php endforeach; ?>
 
         <div class="form-group">
-            <label for="exampleFormControlSelect1">Example select: Combobox</label>
-            <select class="form-control" id="exampleFormControlSelect1" name="Combobox1">
-                <option value="您">您1</option>
-                <option value="好" selected>好2</option>
-                <option value="嗎">嗎3</option>
-            </select>
+        <label for="">運動</label><br>
+                <?php foreach ($data1 as $k=>$v): ?>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="sport_2" id="sport_2_<?= $k+1 ?>" value="<?= $v['sid'] ?>">
+                        <label class="form-check-label" for="sport_2_<?= $k+1 ?>"><?= $v['sport'] ?></label>
+                    </div>
+                <?php endforeach; ?>
         </div>
+        
 
       
         <div class="form-group">
             <!--  name下一樣才是同一個group ,不能多選   /name不一樣可以多選-->
-            <label for="">性別</label><br>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="gender" id="gender1" value="N">
-                <label class="form-check-label" for="gender1">不知道</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="gender" id="gender2" value="F" checked>
-                <label class="form-check-label" for="gender2">女</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="gender" id="gender3" value="M">
-                <label class="form-check-label" for="gender3">男</label>
-            </div>
+            <label for="exampleFormControlSelect1">運動 2</label>
+                <select class="form-control" id="exampleFormControlSelect1" name="sport_3">
+                    <option value="">--- 請選擇 ---</option>
+                    <?php foreach ($data1 as $v): ?>
+                        <option value="<?= $v['sid'] ?>"><?= $v['sport'] ?></option>
+                    <?php endforeach; ?>
+                </select>
         </div>
        
 
