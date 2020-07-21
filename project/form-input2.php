@@ -66,10 +66,11 @@ $data2 = [
             <!--  name下一樣才是同一個group ,不能多選   /name不一樣可以多選-->
             <label for="exampleFormControlSelect1">運動 2</label>
             
-                <select class="form-control" id="exampleFormControlSelect1" name="sport_3">
+                <select class="form-control" id="sport_3" name="sport_3">
                     <option value="">--- 請選擇 ---</option>
                     <?php foreach ($data1 as $v): ?>
-                        <option value="<?= $v['sid'] ?>"><?= $v['sport'] ?></option>
+                        <option value="<?= $v['sid'] ?>"
+                         <?= (!empty($_POST['sport_3']) and $_POST['sport_3']==$v['sid']) ? 'selected' : ''  #  讓送出之後還能在勾選狀態?>><?= $v['sport'] ?></option>
                     <?php endforeach; ?>
                 </select>
         </div>
