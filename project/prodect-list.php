@@ -31,8 +31,12 @@ $rows = $pdo->query($sql)->fetchAll();
 
 // exit;
 
+// --- 分類資料
+$c_sql = "SELECT * FROM `categories` WHERE `parent_sid`=0";
+$cates = $pdo->query($c_sql)->fetchAll();
+
 ?>
-?>
+
 
 <?php include __DIR__. '/0714_html_head.php' ?>
 <style>
@@ -48,6 +52,14 @@ $rows = $pdo->query($sql)->fetchAll();
 
 <div class="row">
     <div class="col-lg-3">
+    <div class="btn-group-vertical" style="width: 100%">
+            <button type="button" class="btn btn-outline-primary">所有商品</button>
+            <?php foreach($cates as $c): ?>
+                <!-- $c['name'] 取得資料庫categories裡的name -->
+            <button type="button" class="btn btn-outline-primary"><?= $c['name'] ?></button>
+            <?php endforeach; ?>
+        </div>
+
 
     </div>
     <div class="col-lg-9">
@@ -69,11 +81,12 @@ $rows = $pdo->query($sql)->fetchAll();
             <div class="col-lg-3">
                 <div class="card">
                     <img src="imgs/small/<?= $r['book_id'] ?>.jpg" class="card-img-top" alt="">
+                    <!-- 改圖片在.jpg後面加?隨意打字  ex. .jpg?dxfjhs  -->
                     <!-- 抓到圖片 -->
 
                     <div class="card-body">
                     <p class="bookname"><?= $r['bookname'] ?></p>
-                        <p class="card-text"><i class="fas fa-at"></i> <?= $r['author'] ?></p>
+                        <p class="bookname"><i class="fas fa-at"></i> <?= $r['author'] ?></p>
                         <p class="card-text"><i class="fas fa-dollar-sign"></i> <?= $r['price'] ?></p>
                         <p>
                             <select type="number" class="form-control" style="display: inline-block; width: auto;">
