@@ -1,3 +1,31 @@
+<?php
+define('WEB_ROOT', '/proj58/project');
+$data1 = [
+    [
+        'sid' => 2,
+        'sport' => '游泳'
+    ], [
+        'sid' => 6,
+        'sport' => '跑步'
+    ], [
+        'sid' => 8,
+        'sport' => '爬山'
+    ]
+];
+$data2 = [
+    'N' => '不知道',
+    'F' => '女',
+    'M' => '男',
+];
+
+?>
+
+
+
+
+
+
+
 <?php include __DIR__. '/0714_html_head.php' ?>
 <?php include __DIR__. '/0714_navebar.php' ?>
 
@@ -8,19 +36,15 @@
     </pre>
     <form action="" method="post">
 
+    <?php foreach ($data1 as $v): ?>
             <!--  name用陣列呈現-->
         <div class="form-group form-check">
-            <input type="checkbox" class="form-check-input" id="exampleCheck1" name="hobby[]" value="游泳">
-            <label class="form-check-label" for="exampleCheck1">游泳</label>
+            <input type="checkbox" class="form-check-input" id="sport<?= $v['sid'] ?>" name="hobby[]" value="<?= $v['sid'] ?>">
+            <label class="form-check-label" for="sport<?= $v['sid'] ?>">
+            <?= $v['sport'] ?>
+            </label>
         </div>
-        <div class="form-group form-check">
-            <input type="checkbox" class="form-check-input" id="exampleCheck2" name="hobby[]" value="跑步" checked>
-            <label class="form-check-label" for="exampleCheck1">跑步</label>
-        </div>
-        <div class="form-group form-check">
-            <input type="checkbox" class="form-check-input" id="exampleCheck3" name="hobby[]" value="爬山">
-            <label class="form-check-label" for="exampleCheck1">爬山</label>
-        </div>
+        <?php endforeach; ?>
 
         <div class="form-group">
             <label for="exampleFormControlSelect1">Example select: Combobox</label>
@@ -30,6 +54,8 @@
                 <option value="嗎">嗎3</option>
             </select>
         </div>
+
+      
         <div class="form-group">
             <!--  name下一樣才是同一個group ,不能多選   /name不一樣可以多選-->
             <label for="">性別</label><br>
@@ -46,7 +72,7 @@
                 <label class="form-check-label" for="gender3">男</label>
             </div>
         </div>
-
+       
 
         <br>
         <button type="submit" class="btn btn-primary">Submit</button>
