@@ -2,6 +2,7 @@
 require __DIR__. '/0714_connect.php';
 $pageName = 'product-list';
 
+$qs = []; // query string
 $perPage = 4;
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 $cate_id = isset($_GET['cate']) ? intval($_GET['cate']) : 0;
@@ -11,6 +12,8 @@ $cate_id = isset($_GET['cate']) ? intval($_GET['cate']) : 0;
 $where = ' WHERE 1 ';
 if($cate_id){
     $where .= " AND `category_sid`=$cate_id ";
+    // category_sid 資料庫分類名稱
+    $qs['cate'] = $cate_id;
 }
 
 
@@ -79,9 +82,11 @@ $cates = $pdo->query($c_sql)->fetchAll();
             <div class="col">
                 <nav aria-label="Page navigation example">
                     <ul class="pagination">
-                     <?php for($i=1; $i<=$totalPages; $i++): ?>  
+                     <?php for($i=1; $i<=$totalPages; $i++):
+                         $qs['page'] = $i;
+                          ?>  
                         <li class="page-item <?= $page==$i ? 'active' : '' ?>">
-                            <a class="page-link" href="?page=<?=$i?>"><?=$i?></a>
+                            <a class="page-link" href="?<?= http_build_query($qs) ?>"><?=$i?></a>
                         </li>
                         <?php endfor?>    
                     </ul>
