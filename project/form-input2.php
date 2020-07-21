@@ -39,7 +39,9 @@ $data2 = [
     <?php foreach ($data1 as $v): ?>
             <!--  name用陣列呈現-->
         <div class="form-group form-check">
-            <input type="checkbox" class="form-check-input" id="sport<?= $v['sid'] ?>" name="hobby[]" value="<?= $v['sid'] ?>">
+            <input type="checkbox" class="form-check-input" id="sport<?= $v['sid'] ?>"
+            <?= (!empty($_POST['hobby']) and in_array($v['sid'], $_POST['hobby'])) ? 'checked' : ''   #  讓送出之後還能在勾選狀態?>
+            name="hobby[]" value="<?= $v['sid'] ?>">
             <label class="form-check-label" for="sport<?= $v['sid'] ?>">
             <?= $v['sport'] ?>
             </label>
@@ -50,7 +52,9 @@ $data2 = [
         <label for="">運動</label><br>
                 <?php foreach ($data1 as $k=>$v): ?>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="sport_2" id="sport_2_<?= $k+1 ?>" value="<?= $v['sid'] ?>">
+                        <input class="form-check-input" type="radio" name="sport_2" 
+                        <?= (!empty($_POST['sport_2']) and $_POST['sport_2']==$v['sid']) ? 'checked' : ''  #  讓送出之後還能在勾選狀態?>
+                        id="sport_2_<?= $k+1 ?>" value="<?= $v['sid'] ?>">
                         <label class="form-check-label" for="sport_2_<?= $k+1 ?>"><?= $v['sport'] ?></label>
                     </div>
                 <?php endforeach; ?>
@@ -61,6 +65,7 @@ $data2 = [
         <div class="form-group">
             <!--  name下一樣才是同一個group ,不能多選   /name不一樣可以多選-->
             <label for="exampleFormControlSelect1">運動 2</label>
+            
                 <select class="form-control" id="exampleFormControlSelect1" name="sport_3">
                     <option value="">--- 請選擇 ---</option>
                     <?php foreach ($data1 as $v): ?>
