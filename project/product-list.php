@@ -4,6 +4,7 @@ $pageName = 'product-list';
 
 $perPage = 4;
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+$cate_id = isset($_GET['cate']) ? intval($_GET['cate']) : 0;
 
 
 $t_sql = "SELECT COUNT(1) FROM `products`";
@@ -53,10 +54,14 @@ $cates = $pdo->query($c_sql)->fetchAll();
 <div class="row">
     <div class="col-lg-3">
     <div class="btn-group-vertical" style="width: 100%">
-            <button type="button" class="btn btn-outline-primary">所有商品</button>
+    <a type="button" class="btn btn-<?= $cate_id==0 ? '' : 'outline-' ?>primary" role="button" href="product-list.php">所有商品</a>
             <?php foreach($cates as $c): ?>
                 <!-- $c['name'] 取得資料庫categories裡的name -->
-            <button type="button" class="btn btn-outline-primary"><?= $c['name'] ?></button>
+                <!-- 讓選到的按鈕底色為藍色 -->
+                <a type="button" class="btn btn-<?= $cate_id==$c['sid'] ? '' : 'outline-' ?>primary" role="button"
+               href="?cate=<?= $c['sid'] ?>">
+                <?= $c['name'] ?>
+            </a>
             <?php endforeach; ?>
         </div>
 
