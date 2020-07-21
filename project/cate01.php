@@ -11,11 +11,13 @@ foreach($rows as $r){
         }
     }
 
+
+    //第二層塞到第一層
     foreach($cate as $k=>$c){
         foreach($rows as $r){
            if($r['parent_sid']==$c['sid']){
-            //  $r 是  $c 的子層
-               $cate[$k]['children'][] = $r;
+            // 如果 $r 是  $c 的子層 ,把r塞進來
+               $cate[$k]['children'][] = $r; //透過$cate變數,對應原本陣列
            }
             }
     }
@@ -120,4 +122,7 @@ Array
 
 </div>
 <?php include __DIR__. '/0714_scripts.php' ?>
+<script>
+let cates = <?= json_encode($cate, JSON_UNESCAPED_UNICODE); ?>;
+</script>
 <?php require __DIR__. '/0714_html_foot.php' ?>
