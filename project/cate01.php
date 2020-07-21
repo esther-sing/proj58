@@ -10,7 +10,18 @@ foreach($rows as $r){
             $cate[] = $r;
         }
     }
+
+    foreach($cate as $k=>$c){
+        foreach($rows as $r){
+           if($r['parent_sid']==$c['sid']){
+            //  $r 是  $c 的子層
+               $cate[$k]['children'][] = $r;
+           }
+            }
+    }
 ?>
+
+
 
 <?php include __DIR__. '/0714_html_head.php' ?>
 
@@ -21,12 +32,38 @@ foreach($rows as $r){
     <pre><?php print_r($cate) #  印出陣列第一層 ?></pre>
 
     <!-- 呈現畫面Array
+Array
 (
     [0] => Array
         (
             [sid] => 1
             [name] => 程式設計
             [parent_sid] => 0
+            [children] => Array
+                (
+                    [0] => Array
+                        (
+                            [sid] => 4
+                            [name] => PHP
+                            [parent_sid] => 1
+                        )
+
+                    [1] => Array
+                        (
+                            [sid] => 5
+                            [name] => JavaScript
+                            [parent_sid] => 1
+                        )
+
+                    [2] => Array
+                        (
+                            [sid] => 10
+                            [name] => C++
+                            [parent_sid] => 1
+                        )
+
+                )
+
         )
 
     [1] => Array
@@ -34,6 +71,24 @@ foreach($rows as $r){
             [sid] => 2
             [name] => 繪圖軟體
             [parent_sid] => 0
+            [children] => Array
+                (
+                    [0] => Array
+                        (
+                            [sid] => 7
+                            [name] => PS
+                            [parent_sid] => 2
+                        )
+
+                    [1] => Array
+                        (
+                            [sid] => 16
+                            [name] => 椅拉
+                            [parent_sid] => 2
+                        )
+
+                )
+
         )
 
     [2] => Array
@@ -41,6 +96,24 @@ foreach($rows as $r){
             [sid] => 3
             [name] => 網際網路應用
             [parent_sid] => 0
+            [children] => Array
+                (
+                    [0] => Array
+                        (
+                            [sid] => 8
+                            [name] => Chrome
+                            [parent_sid] => 3
+                        )
+
+                    [1] => Array
+                        (
+                            [sid] => 9
+                            [name] => 騙錢的
+                            [parent_sid] => 3
+                        )
+
+                )
+
         )
 
 ) -->
