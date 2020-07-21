@@ -12,6 +12,8 @@ $cate_id = isset($_GET['cate']) ? intval($_GET['cate']) : 0;
 $where = ' WHERE 1 ';
 if($cate_id){
     $where .= " AND `category_sid`=$cate_id ";
+    //$a = $a+$b  =>  $a += $b   =>  $a .=$b  (PHP 文字字串相加用點 .)
+    //AND 是 SQL語法
     // category_sid 資料庫分類名稱
     $qs['cate'] = $cate_id;
 }
@@ -79,6 +81,16 @@ $cates = $pdo->query($c_sql)->fetchAll();
     </div>
     <div class="col-lg-9">
         <div class="row">
+        <div class="col d-flex justify-content-end">
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search"
+                           name="search"
+                           aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+        <div class="row">
             <div class="col">
                 <nav aria-label="Page navigation example">
                     <ul class="pagination">
@@ -95,7 +107,7 @@ $cates = $pdo->query($c_sql)->fetchAll();
         </div>
         <div class="row">
             <?php foreach($rows as $r): ?>
-            <div class="col-lg-3">
+            <div class="col-lg-3 col-md-3 col-sm-4">
                 <div class="card">
                     <img src="imgs/small/<?= $r['book_id'] ?>.jpg" class="card-img-top" alt="">
                     <!-- 改圖片在.jpg後面加?隨意打字  ex. .jpg?dxfjhs  -->
