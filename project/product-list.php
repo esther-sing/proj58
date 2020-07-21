@@ -6,6 +6,7 @@ $qs = []; // query string
 $perPage = 4;
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 $cate_id = isset($_GET['cate']) ? intval($_GET['cate']) : 0;
+$search = isset($_GET['search']) ? $_GET['search'] : '';
 
 
 
@@ -17,6 +18,12 @@ if($cate_id){
     // category_sid 資料庫分類名稱
     $qs['cate'] = $cate_id;
 }
+
+if($search){
+    //SQL搜尋語法 %$search%
+        $search2 = $pdo->quote("%$search%");  // avoid SQL injection
+        $where .= " AND (`author` LIKE $search2 OR `bookname` LIKE $search2 ) ";
+    }
 
 
 $t_sql = "SELECT COUNT(1) FROM `products` $where ";
@@ -32,7 +39,7 @@ if($page>$totalPages){
     exit;
 }
 
-$sql = sprintf("SELECT * FROM `products`  $where LIMIT %s, %s", ($page-1)*$perPage, $perPage);
+$sql = sprintf("SELECT * FROM `products` %s LIMIT %s, %s", $where,  ($page-1)*$perPage, $perPage);
 
 $rows = $pdo->query($sql)->fetchAll();
 
