@@ -21,11 +21,11 @@ if(empty($pageName)){
                 <!-- <li class="nav-item"> -->
                 <li class="nav-item ">
 
-                    <a class="nav-link" href="<?= WEB_ROOT ?>/index_.php">商品列表</a>
+                    <a class="nav-link" href="<?= WEB_ROOT ?>/product.php">商品列表</a>
                 </li>
                 <!-- <li class="nav-item"> -->
                 <li class="nav-item">
-                 <a class="nav-link" href="<?= WEB_ROOT ?>/0715-abinsert.php">購物車</a>
+                 <a class="nav-link" href="<?= WEB_ROOT ?>/cart.php">購物車</a>
               </li>
             </ul>
             <ul class="navbar-nav">
