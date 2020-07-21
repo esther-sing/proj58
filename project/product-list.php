@@ -7,7 +7,14 @@ $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 $cate_id = isset($_GET['cate']) ? intval($_GET['cate']) : 0;
 
 
-$t_sql = "SELECT COUNT(1) FROM `products`";
+
+$where = ' WHERE 1 ';
+if($cate_id){
+    $where .= " AND `category_sid`=$cate_id ";
+}
+
+
+$t_sql = "SELECT COUNT(1) FROM `products` $where ";
 $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
 $totalPages = ceil($totalRows/$perPage);
 
@@ -20,7 +27,7 @@ if($page>$totalPages){
     exit;
 }
 
-$sql = sprintf("SELECT * FROM `products` LIMIT %s, %s", ($page-1)*$perPage, $perPage);
+$sql = sprintf("SELECT * FROM `products`  $where LIMIT %s, %s", ($page-1)*$perPage, $perPage);
 
 $rows = $pdo->query($sql)->fetchAll();
 
