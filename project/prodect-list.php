@@ -35,6 +35,14 @@ $rows = $pdo->query($sql)->fetchAll();
 ?>
 
 <?php include __DIR__. '/0714_html_head.php' ?>
+<style>
+    .bookname{
+        overflow : hidden;
+        text-overflow : ellipsis;
+        white-space : nowrap;
+    }
+</style>
+
 <?php include __DIR__. '/0714_navebar.php' ?>
 <div class="container">
 
@@ -47,11 +55,11 @@ $rows = $pdo->query($sql)->fetchAll();
             <div class="col">
                 <nav aria-label="Page navigation example">
                     <ul class="pagination">
-                        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                     <?php for($i=1; $i<=$totalPages; $i++): ?>  
+                        <li class="page-item <?= $page==$i ? 'active' : '' ?>">
+                            <a class="page-link" href="?page=<?=$i?>"><?=$i?></a>
+                        </li>
+                        <?php endfor?>    
                     </ul>
                 </nav>
             </div>
@@ -62,12 +70,19 @@ $rows = $pdo->query($sql)->fetchAll();
                 <div class="card">
                     <img src="imgs/small/<?= $r['book_id'] ?>.jpg" class="card-img-top" alt="">
                     <!-- 抓到圖片 -->
-                    
+
                     <div class="card-body">
-                        <h5 class="card-title"><?= $r['bookname'] ?></h5> 
-                        <p class="card-text"><?= $r['author'] ?></p>
-                        <p class="card-text"><?= $r['price'] ?></p>
-                        <!--複製bootstrap格式來修改  $r [' 資料庫欄位名稱 '] -->
+                    <p class="bookname"><?= $r['bookname'] ?></p>
+                        <p class="card-text"><i class="fas fa-at"></i> <?= $r['author'] ?></p>
+                        <p class="card-text"><i class="fas fa-dollar-sign"></i> <?= $r['price'] ?></p>
+                        <p>
+                            <select type="number" class="form-control" style="display: inline-block; width: auto;">
+                                <?php for($i=1; $i<=20; $i++): ?>
+                                <option value="<?=$i?>"><?=$i?></option>
+                                <?php endfor; ?>
+                            </select>
+                            <button type="button" class="btn btn-primary">敗</button>
+                        </p>
                     </div>
                 </div>
             </div>
