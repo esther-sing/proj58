@@ -157,9 +157,9 @@ $cates = $pdo->query($c_sql)->fetchAll();
         }
         $.get('handle-cart.php', sendObj, function(data){
             console.log(data);
-            alert('感謝加入購物車');
+            setCartCount(data); //呼叫0714_scripts.php裡的function
         }, 'json');
-        //alert(sid +','+qty)
+     
     })                                
 </script>
 <?php require __DIR__ . '/0714_html_foot.php' ?>

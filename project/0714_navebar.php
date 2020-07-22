@@ -25,7 +25,8 @@ if(empty($pageName)){
                 </li>
                 <!-- <li class="nav-item"> -->
                 <li class="nav-item">
-                 <a class="nav-link" href="<?= WEB_ROOT ?>/cart.php">購物車</a>
+                 <a class="nav-link" href="<?= WEB_ROOT ?>/cart.php">購物車<span class="badge badge-pill badge-primary cart-count">0</span> 
+                    </a>
               </li>
             </ul>
             <ul class="navbar-nav">
