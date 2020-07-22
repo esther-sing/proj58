@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="info"></div>
+
+
+<script>
+    let origin  = ['ben', 'david', 'flora', 'dephne', 'aaron'];
+    let ar  = [ ...origin ]; // origin.slice();
+    info.innerHTML += JSON.stringify(ar) + '<br>';
+    info.innerHTML += '-------------------<br>';
+
+    // splice( 從陣列第幾個開始 , 總共切幾個 , 插入的值 )
+    let br = ar.splice(2, 2);
+    info.innerHTML += JSON.stringify(ar) + '<br>';
+    info.innerHTML += JSON.stringify(br) + '<br>';
+    info.innerHTML += '-------------------<br>';
+
+
+
+    ar = origin.concat();
+    br = ar.splice(2, 1, 'peter');
+    info.innerHTML += JSON.stringify(ar) + '<br>';
+    info.innerHTML += JSON.stringify(br) + '<br>';
+    info.innerHTML += '-------------------<br>';
+
+
+    ar = origin.slice();
+    br = ar.splice(2, 0, 'peter', 'victor');
+    info.innerHTML += JSON.stringify(ar) + '<br>';
+    info.innerHTML += JSON.stringify(br) + '<br>';
+    info.innerHTML += '-------------------<br>';
+</script>
+
+</body>
+</html>
