@@ -33,7 +33,13 @@ $pageName = 'cart';
                     </td>
                     <td><?= $i['bookname'] ?></td>
                     <td class="price"></td>
-                    <td class="quantity"></td>
+                    <td class="quantity">
+                        <select class="form-control qty">
+                            <?php for($i=1; $i<=20; $i++): ?>
+                                <option value="<?=$i?>"><?=$i?></option>
+                            <?php endfor; ?>
+                        </select>
+                    </td>
                     <td class="sub-total"></td>
                 </tr>
                 <?php endforeach; ?>
@@ -46,7 +52,7 @@ $pageName = 'cart';
     <div class="row">
         <div class="col">
             <div class="alert alert-primary" role="alert">
-                總計: <span></span>
+                總計: <span id="total-price"></span>
             </div>
         </div>
     </div>
@@ -62,12 +68,17 @@ $pageName = 'cart';
     };
 
     $p_item = $('.p-item');
+    let total = 0;
     $p_item.each(function(){
         const sid = $(this).attr('data-sid');
         const price = $(this).attr('data-price');
         const quantity = $(this).attr('data-quantity');
 
-        $(this).find('.price').text(price);
+        $(this).find('.price').text('$ ' + dallorCommas(price));
+        $(this).find('.qty').val(quantity);
+        $(this).find('.sub-total').text( '$ ' + dallorCommas(quantity*price) );
+        total += quantity*price;
+        $('#total-price').text( '$ ' + dallorCommas(total));
     })
 </script>
 <?php require __DIR__. '/0714_html_foot.php' ?>
