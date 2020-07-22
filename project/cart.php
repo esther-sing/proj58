@@ -26,7 +26,7 @@ $pageName = 'cart';
                     data-quantity="<?= $i['quantity'] ?>"
                 >
                     <td>
-                        <a href=""><i class="fas fa-trash-alt"></i></a>
+                        <a href="javascript:" class="remove-item"><i class="fas fa-trash-alt"></i></a>
                     </td>
                     <td>
                         <img src="imgs/small/<?= $i['book_id'] ?>.jpg">
@@ -99,6 +99,17 @@ $pageName = 'cart';
             p_item.attr('data-quantity', sendObj.quantity);
             prepareCartTable();
         }, 'json');
+    });
+
+    $('.remove-item').on('click', function(){
+        const p_item = $(this).closest('.p-item');
+        const sid = p_item.attr('data-sid');
+        $.get('handle-cart.php', {action: 'remove', sid:sid }, function(data){
+            setCartCount(data); // navbar
+            p_item.remove();
+            prepareCartTable();
+        }, 'json');
+
     });
 </script>
 <?php require __DIR__. '/0714_html_foot.php' ?>
