@@ -46,7 +46,7 @@ switch ($action) {
                 $output['code'] = 210;
             }
         }
-
+    break;
 
     case 'remove': //刪除購物車內容
         $index = array_search($sid, array_column($_SESSION['cart'], 'sid'));

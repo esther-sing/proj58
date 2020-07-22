@@ -150,7 +150,16 @@ $cates = $pdo->query($c_sql)->fetchAll();
         const p_item = $(this).closest('.p-item') //closest()往外層找到class: p-item
         const sid = p_item.attr('data-sid'); //得到data-sid的值  (產品編號)
         const qty = p_item.find('select').val() //find()往內層找到select  (購買數量)
-        alert(sid +','+qty)
+        const sendObj = {
+            action: 'add',
+            sid,
+            quantity: qty
+        }
+        $.get('handle-cart.php', sendObj, function(data){
+            console.log(data);
+            alert('感謝加入購物車');
+        }, 'json');
+        //alert(sid +','+qty)
     })                                
 </script>
 <?php require __DIR__ . '/0714_html_foot.php' ?>
