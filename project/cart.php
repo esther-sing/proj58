@@ -1,48 +1,44 @@
 <?php
-require __DIR__. '/0714_connect.php';
+require __DIR__ . '/0714_connect.php';
 $pageName = 'cart';
 ?>
-<?php include __DIR__. '/0714_html_head.php' ?>
-<?php include __DIR__. '/0714_navebar.php' ?>
+<?php include __DIR__ . '/0714_html_head.php' ?>
+<?php include __DIR__ . '/0714_navebar.php' ?>
 <div class="container">
     <div class="row">
         <div class="col">
             <table class="table table-striped table-bordered">
                 <thead>
-                <tr>
-                    <th scope="col"><i class="fas fa-trash-alt"></i></th>
-                    <th scope="col">封面</th>
-                    <th scope="col">書名</th>
-                    <th scope="col">單價</th>
-                    <th scope="col">數量</th>
-                    <th scope="col">小計</th>
-                </tr>
+                    <tr>
+                        <th scope="col"><i class="fas fa-trash-alt"></i></th>
+                        <th scope="col">封面</th>
+                        <th scope="col">書名</th>
+                        <th scope="col">單價</th>
+                        <th scope="col">數量</th>
+                        <th scope="col">小計</th>
+                    </tr>
                 </thead>
                 <tbody>
-                <?php foreach($_SESSION['cart'] as $i): ?>
-                <tr class="p-item"
-                    data-sid="<?= $i['sid'] ?>"
-                    data-price="<?= $i['price'] ?>"
-                    data-quantity="<?= $i['quantity'] ?>"
-                >
-                    <td>
-                        <a href="javascript:" class="remove-item"><i class="fas fa-trash-alt"></i></a>
-                    </td>
-                    <td>
-                        <img src="imgs/small/<?= $i['book_id'] ?>.jpg">
-                    </td>
-                    <td><?= $i['bookname'] ?></td>
-                    <td class="price"></td>
-                    <td class="quantity">
-                        <select class="form-control qty">
-                            <?php for($i=1; $i<=20; $i++): ?>
-                                <option value="<?=$i?>"><?=$i?></option>
-                            <?php endfor; ?>
-                        </select>
-                    </td>
-                    <td class="sub-total"></td>
-                </tr>
-                <?php endforeach; ?>
+                    <?php foreach ($_SESSION['cart'] as $i) : ?>
+                        <tr class="p-item" data-sid="<?= $i['sid'] ?>" data-price="<?= $i['price'] ?>" data-quantity="<?= $i['quantity'] ?>">
+                            <td>
+                                <a href="javascript:" class="remove-item"><i class="fas fa-trash-alt"></i></a>
+                            </td>
+                            <td>
+                                <img src="imgs/small/<?= $i['book_id'] ?>.jpg">
+                            </td>
+                            <td><?= $i['bookname'] ?></td>
+                            <td class="price"></td>
+                            <td class="quantity">
+                                <select class="form-control qty">
+                                    <?php for ($i = 1; $i <= 20; $i++) : ?>
+                                        <option value="<?= $i ?>"><?= $i ?></option>
+                                    <?php endfor; ?>
+                                </select>
+                            </td>
+                            <td class="sub-total"></td>
+                        </tr>
+                    <?php endforeach; ?>
                 </tbody>
             </table>
 
@@ -60,16 +56,19 @@ $pageName = 'cart';
 
 
 </div>
-<?php include __DIR__. '/0714_scripts.php' ?>
+<?php include __DIR__ . '/0714_scripts.php' ?>
 <script>
-    const dallorCommas = function(n){
+    const dallorCommas = function(n) {
         return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     };
 
     function prepareCartTable() {
         const $p_items = $('.p-item');
         let total = 0;
-        $p_items.each(function () {
+        if ($p_items.length == 0) {
+            location.href="product-list.php";
+        } else {
+        $p_items.each(function() {
             const sid = $(this).attr('data-sid');
             const price = $(this).attr('data-price');
             const quantity = $(this).attr('data-quantity');
@@ -79,13 +78,13 @@ $pageName = 'cart';
             $(this).find('.sub-total').text('$ ' + dallorCommas(quantity * price));
             total += quantity * price;
             $('#total-price').text('$ ' + dallorCommas(total));
-        })
+        })}
     }
     prepareCartTable();
 
 
     const qty_sel = $('.qty');
-    qty_sel.on('change', function(){
+    qty_sel.on('change', function() {
         const p_item = $(this).closest('.p-item');
         const sid = p_item.attr('data-sid');
         // alert(sid +', '+ $(this).val() )
@@ -94,17 +93,20 @@ $pageName = 'cart';
             sid: sid,
             quantity: $(this).val()
         }
-        $.get('handle-cart.php', sendObj, function(data){
+        $.get('handle-cart.php', sendObj, function(data) {
             setCartCount(data); // navbar
             p_item.attr('data-quantity', sendObj.quantity);
             prepareCartTable();
         }, 'json');
     });
 
-    $('.remove-item').on('click', function(){
+    $('.remove-item').on('click', function() {
         const p_item = $(this).closest('.p-item');
         const sid = p_item.attr('data-sid');
-        $.get('handle-cart.php', {action: 'remove', sid:sid }, function(data){
+        $.get('handle-cart.php', {
+            action: 'remove',
+            sid: sid
+        }, function(data) {
             setCartCount(data); // navbar
             p_item.remove();
             prepareCartTable();
@@ -112,13 +114,4 @@ $pageName = 'cart';
 
     });
 </script>
-<?php require __DIR__. '/0714_html_foot.php' ?>
-
-
-
-
-
-
-
-
-
+<?php require __DIR__ . '/0714_html_foot.php' ?>

@@ -115,7 +115,7 @@ $cates = $pdo->query($c_sql)->fetchAll();
             </div>
             <div class="row">
                 <?php foreach ($rows as $r) : ?>
-                    <div class="col-lg-3 col-md-3 col-sm-4 p-item" data-sid="<?= $r['sid'] ?>">">
+                    <div class="col-lg-3 col-md-3 col-sm-4 p-item" data-sid="<?= $r['sid'] ?>">
                         <div class="card">
                             <img src="imgs/small/<?= $r['book_id'] ?>.jpg" class="card-img-top" alt="">
                             <!-- 改圖片在.jpg後面加?隨意打字  ex. .jpg?dxfjhs  -->
