@@ -115,7 +115,7 @@ $cates = $pdo->query($c_sql)->fetchAll();
             </div>
             <div class="row">
                 <?php foreach ($rows as $r) : ?>
-                    <div class="col-lg-3 col-md-3 col-sm-4">
+                    <div class="col-lg-3 col-md-3 col-sm-4 p-item" data-sid="<?= $r['sid'] ?>">">
                         <div class="card">
                             <img src="imgs/small/<?= $r['book_id'] ?>.jpg" class="card-img-top" alt="">
                             <!-- 改圖片在.jpg後面加?隨意打字  ex. .jpg?dxfjhs  -->
@@ -131,7 +131,7 @@ $cates = $pdo->query($c_sql)->fetchAll();
                                             <option value="<?= $i ?>"><?= $i ?></option>
                                         <?php endfor; ?>
                                     </select>
-                                    <button type="button" class="btn btn-primary">敗</button>
+                                    <button type="button" class="btn btn-primary buy-btn">敗</button>
                                 </p>
                             </div>
                         </div>
@@ -144,4 +144,13 @@ $cates = $pdo->query($c_sql)->fetchAll();
 
 </div>
 <?php include __DIR__ . '/0714_scripts.php' ?>
+<script>
+    const buy_btn = $('.buy-btn'); //抓到按鈕
+    buy_btn.click(function(){
+        const p_item = $(this).closest('.p-item') //closest()往外層找到class: p-item
+        const sid = p_item.attr('data-sid'); //得到data-sid的值  (產品編號)
+        const qty = p_item.find('select').val() //find()往內層找到select  (購買數量)
+        alert(sid +','+qty)
+    })                                
+</script>
 <?php require __DIR__ . '/0714_html_foot.php' ?>
