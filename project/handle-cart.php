@@ -19,9 +19,9 @@ $output = [
  */
 
 switch ($action){
-    case 'add':
+    case 'add':  //加入購物車
         if(empty($sid) or $quantity<=0 ){
-                        // 不做任何事
+                        // 若兩個都沒有, 不做任何事
                         $output['code'] = 400; //測試用編碼
                     } else {
                         $index = array_search($sid, array_column($_SESSION['cart'], 'sid')); //查詢有沒有這個sid
@@ -40,13 +40,17 @@ switch ($action){
             
                     }
             
-            //        $_SESSION['cart'][] = [
-            //            'sid' => $sid,
-            //            'quantity' => $quantity
-            //        ];
-        break;
-    case 'remove':
 
+    case 'remove': //刪除購物車內容
+                $index = array_search($sid, array_column($_SESSION['cart'], 'sid'));
+                if($index===false){
+                    // 原本沒有此項目
+                    $output['code'] = 300;
+                } else {
+                    // 有該項目,將該項目刪除
+                    array_splice($_SESSION['cart'], $index, 1);
+                    $output['code'] = 310;
+                }
         break;
     case 'empty':
         $_SESSION['cart'] = [];
