@@ -28,6 +28,17 @@ if(empty($pageName)){
                  <a class="nav-link" href="<?= WEB_ROOT ?>/cart.php">購物車<span class="badge badge-pill badge-primary cart-count">0</span> 
                     </a>
               </li>
+              <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        快速檢視
+                    </a>
+                    <div class="dropdown-menu cart-short-list" aria-labelledby="navbarDropdown">
+                        <!--
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        -->
+                    </div>
+                </li>
             </ul>
             <ul class="navbar-nav">
             <?php if(isset($_SESSION['member'])): ?>
