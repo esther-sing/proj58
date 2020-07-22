@@ -46,7 +46,6 @@ $pageName = 'cart';
                 </tbody>
             </table>
 
-
         </div>
     </div>
     <div class="row">
@@ -67,21 +66,47 @@ $pageName = 'cart';
         return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     };
 
-    $p_item = $('.p-item');
-    let total = 0;
-    $p_item.each(function(){
-        const sid = $(this).attr('data-sid');
-        const price = $(this).attr('data-price');
-        const quantity = $(this).attr('data-quantity');
+    function prepareCartTable() {
+        const $p_items = $('.p-item');
+        let total = 0;
+        $p_items.each(function () {
+            const sid = $(this).attr('data-sid');
+            const price = $(this).attr('data-price');
+            const quantity = $(this).attr('data-quantity');
 
-        $(this).find('.price').text('$ ' + dallorCommas(price));
-        $(this).find('.qty').val(quantity);
-        $(this).find('.sub-total').text( '$ ' + dallorCommas(quantity*price) );
-        total += quantity*price;
-        $('#total-price').text( '$ ' + dallorCommas(total));
-    })
+            $(this).find('.price').text('$ ' + dallorCommas(price));
+            $(this).find('.qty').val(quantity);
+            $(this).find('.sub-total').text('$ ' + dallorCommas(quantity * price));
+            total += quantity * price;
+            $('#total-price').text('$ ' + dallorCommas(total));
+        })
+    }
+    prepareCartTable();
+
+
+    const qty_sel = $('.qty');
+    qty_sel.on('change', function(){
+        const p_item = $(this).closest('.p-item');
+        const sid = p_item.attr('data-sid');
+        // alert(sid +', '+ $(this).val() )
+        const sendObj = {
+            action: 'add',
+            sid: sid,
+            quantity: $(this).val()
+        }
+        $.get('handle-cart.php', sendObj, function(data){
+            setCartCount(data); // navbar
+            p_item.attr('data-quantity', sendObj.quantity);
+            prepareCartTable();
+        }, 'json');
+    });
 </script>
 <?php require __DIR__. '/0714_html_foot.php' ?>
+
+
+
+
+
 
 
 
