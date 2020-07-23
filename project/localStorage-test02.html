@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.css">
+</head>
+<body>
+
+<table class="table table-striped table-bordered">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>名稱</th>
+        <th>price</th>
+        <th>數量</th>
+    </tr>
+    </thead>
+    <tbody class="tbody">
+    </tbody>
+</table>
+
+<script src="../lib/jquery-3.5.1.js"></script>
+<script>
+    const tbody = $('.tbody');
+    function itemTpl(obj){
+        return `<tr>
+                    <td>${obj.sid}</td>
+                    <td>${obj.bookname}</td>
+                    <td>${obj.price}</td>
+                    <td>${obj.quantity}</td>
+                </tr>`;
+    }
+
+    let data = localStorage.getItem('my_data'); // 讀取
+    data = JSON.parse(data);
+    console.log(data);
+    data.forEach(function(el){
+        tbody.append(itemTpl(el));
+    });
+
+
+
+</script>
+</body>
+</html>
