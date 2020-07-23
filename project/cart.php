@@ -5,6 +5,15 @@ $pageName = 'cart';
 <?php include __DIR__ . '/0714_html_head.php' ?>
 <?php include __DIR__ . '/0714_navebar.php' ?>
 <div class="container">
+<?php if(empty($_SESSION['cart'])): ?>
+    <div class="row">
+        <div class="col">
+            <div class="alert alert-danger" role="alert">
+                購物車內沒有商品
+            </div>
+        </div>
+    </div>
+    <?php else: ?>
     <div class="row">
         <div class="col">
             <table class="table table-striped table-bordered">
@@ -51,7 +60,7 @@ $pageName = 'cart';
             </div>
         </div>
     </div>
-
+    <?php endif; ?>
 
 
 
@@ -64,10 +73,16 @@ $pageName = 'cart';
 
     function prepareCartTable() {
         const $p_items = $('.p-item');
+
+        if(! $p_items.length && $('#total-price').length){
+            // location.href = location.href;
+            location.reload();
+            return;
+        }
         let total = 0;
-        if ($p_items.length == 0) {
-            location.href="product-list.php";
-        } else {
+        // if ($p_items.length == 0) {
+        //     location.href="product-list.php";
+        // } else {
         $p_items.each(function() {
             const sid = $(this).attr('data-sid');
             const price = $(this).attr('data-price');
@@ -79,7 +94,7 @@ $pageName = 'cart';
             total += quantity * price;
             $('#total-price').text('$ ' + dallorCommas(total));
         })}
-    }
+    // }
     prepareCartTable();
 
 
