@@ -27,7 +27,32 @@ $sql = "INSERT INTO `orders`(`member_sid`, `amount`, `order_date`) VALUES (?, ? 
 $stmt = $pdo->prepare($sql);
 $stmt->execute([ $_SESSION['member']['id'], $totalPrice]);
 
-$order_sid = $pdo->lastInsertId();
-echo "\$order_sid: $order_sid"; //回傳訂單編號
-exit;
+$order_sid = $pdo->lastInsertId();  // 訂單流水號
+ 
+// 寫入 order_details
+$sql2 = "INSERT INTO `order_details`(`order_sid`, `product_sid`, `price`, `quantity`) VALUES (?,?,?,?)";
+$stmt2 = $pdo->prepare($sql2);
+ 
+foreach($_SESSION['cart'] as $i){
+    $stmt2->execute([$order_sid, $i['sid'], $i['price'] , $i['quantity'] ]);
+}
+ 
+// 清除購物車內容
+unset($_SESSION['cart']);
+?>
 
+<?php include __DIR__. '/0714_html_head.php' ?>
+<?php include __DIR__. '/0714_navebar.php' ?>
+<div class="container">
+
+    <div class="row">
+        <div class="col">
+            <h2>感謝訂購</h2>
+        </div>
+    </div>
+    </div>
+    <?php include __DIR__. '/0714_scripts.php' ?>
+    <script>
+    
+    </script>
+    <?php require __DIR__. '/0714_html_foot.php' ?>
