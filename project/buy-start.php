@@ -6,31 +6,30 @@ if(empty($_SESSION['cart']) or empty($_SESSION['member'])){
     exit;
 }
 
-//print_r( array_column($_SESSION['cart'], 'sid'));
-//exit;
+// *** 抓到當下的價格資訊 *** begin
 $sids = array_column($_SESSION['cart'], 'sid');
 $sql = "SELECT * FROM `products` WHERE `sid` IN (". implode(',', $sids). ")";
-echo $sql;
-exit;
+$productData = [];
+$stmt = $pdo->query($sql);
+while($r = $stmt->fetch()){
+    $productData[$r['sid']] = $r;
+}
+foreach ($_SESSION['cart'] as $k=>$v){
+    $_SESSION['cart'][$k]['price'] = $productData[$v['sid']]['price'];
+}
+// *** 抓到當下的價格資訊 *** end
 ?>
 <?php include __DIR__. '/0714_html_head.php' ?>
 <?php include __DIR__. '/0714_navebar.php' ?>
 <div class="container">
-    <?php if(empty($_SESSION['cart'])): ?>
+   
     <div class="row">
         <div class="col">
-            <div class="alert alert-danger" role="alert">
-                購物車內沒有商品
-            </div>
-        </div>
-    </div>
-    <?php else: ?>
-    <div class="row">
-        <div class="col">
+        <h2>訂單確認</h2>
             <table class="table table-striped table-bordered">
                 <thead>
                 <tr>
-                    <th scope="col"><i class="fas fa-trash-alt"></i></th>
+                  
                     <th scope="col">封面</th>
                     <th scope="col">書名</th>
                     <th scope="col">單價</th>
@@ -46,20 +45,12 @@ exit;
                     data-quantity="<?= $i['quantity'] ?>"
                 >
                     <td>
-                        <a href="javascript:" class="remove-item"><i class="fas fa-trash-alt"></i></a>
-                    </td>
-                    <td>
+                     
                         <img src="imgs/small/<?= $i['book_id'] ?>.jpg">
                     </td>
                     <td><?= $i['bookname'] ?></td>
                     <td class="price"></td>
-                    <td class="quantity">
-                        <select class="form-control qty">
-                            <?php for($i=1; $i<=20; $i++): ?>
-                                <option value="<?=$i?>"><?=$i?></option>
-                            <?php endfor; ?>
-                        </select>
-                    </td>
+                    <td class="quantity"><?= $i['quantity'] ?></td>
                     <td class="sub-total"></td>
                 </tr>
                 <?php endforeach; ?>
@@ -76,16 +67,19 @@ exit;
         </div>
     </div>
     <div class="row">
-        <div class="col d-flex flex-row-reverse bd-highlight">
-            <?php if(isset($_SESSION['member'])): ?>
-                <a type="button" class="btn btn-success" role="button" href="buy-start.php">結帳</a>
-            <?php else: ?>
-                <a type="button" class="btn btn-danger" role="button" href="login.php">請先登入再結帳</a>
-            <?php endif; ?>
+    <div class="col d-flex justify-content-between">
+
+                <a type="button" class="btn btn-primary" role="button" href="cart.php">
+                    <i class="fas fa-arrow-circle-left"></i> 回到購物車
+                </a>
+
+                <a type="button" class="btn btn-success" role="button" href="buy-finish.php">
+                    <i class="fas fa-arrow-circle-right"></i> 確定購買
+                </a>
 
         </div>
     </div>
-    <?php endif; ?>
+  
 
 
 
@@ -118,34 +112,6 @@ exit;
     }
     prepareCartTable();
 
-
-    const qty_sel = $('.qty');
-    qty_sel.on('change', function(){
-        const p_item = $(this).closest('.p-item');
-        const sid = p_item.attr('data-sid');
-        // alert(sid +', '+ $(this).val() )
-        const sendObj = {
-            action: 'add',
-            sid: sid,
-            quantity: $(this).val()
-        }
-        $.get('handle-cart.php', sendObj, function(data){
-            setCartCount(data); // navbar
-            p_item.attr('data-quantity', sendObj.quantity);
-            prepareCartTable();
-        }, 'json');
-    });
-
-    $('.remove-item').on('click', function(){
-        const p_item = $(this).closest('.p-item');
-        const sid = p_item.attr('data-sid');
-        $.get('handle-cart.php', {action: 'remove', sid:sid }, function(data){
-            setCartCount(data); // navbar
-            p_item.remove();
-            prepareCartTable();
-        }, 'json');
-
-    });
 </script>
 <?php require __DIR__. '/0714_html_foot.php' ?>
 
