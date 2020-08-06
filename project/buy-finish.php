@@ -41,6 +41,8 @@ foreach($_SESSION['cart'] as $i){
 unset($_SESSION['cart']);
 ?>
 
+
+
 <?php include __DIR__. '/0714_html_head.php' ?>
 <?php include __DIR__. '/0714_navebar.php' ?>
 <div class="container">
